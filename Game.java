@@ -114,4 +114,79 @@ private void death() {
     continueLevel();
 }
 
+private void moveGhosts(Graphics2D g) {
+
+        int pos;
+        int count;
+
+        for (int i = 0; i < N_GHOSTS; i++) {
+            if (ghostX[i] % B_SIZE == 0 && ghostY[i] % B_SIZE == 0) {
+                pos = ghostX[i] / B_SIZE + NUM_BLOCK * (int) (ghostY[i] / B_SIZE);
+
+                count = 0;
+
+                if ((screenData[pos] & 1) == 0 && ghostDX[i] != 1) {
+                    dx[count] = -1;
+                    dy[count] = 0;
+                    count++;
+                }
+
+                if ((screenData[pos] & 2) == 0 && ghostDY[i] != 1) {
+                    dx[count] = 0;
+                    dy[count] = -1;
+                    count++;
+                }
+
+                if ((screenData[pos] & 4) == 0 && ghostDX[i] != -1) {
+                    dx[count] = 1;
+                    dy[count] = 0;
+                    count++;
+                }
+
+                if ((screenData[pos] & 8) == 0 && ghostDY[i] != -1) {
+                    dx[count] = 0;
+                    dy[count] = 1;
+                    count++;
+                }
+
+                if (count == 0) {
+
+                    if ((screenData[pos] & 15) == 15) {
+                        ghostDX[i] = 0;
+                        ghostDY[i] = 0;
+                    } else {
+                        ghostDX[i] = -ghostDX[i];
+                        ghostDY[i] = -ghostDY[i];
+                    }
+
+                } else {
+
+                    count = (int) (Math.random() * count);
+
+                    if (count > 3) {
+                        count = 3;
+                    }
+
+                    ghostDX[i] = dx[count];
+                    ghostDY[i] = dy[count];
+                }
+
+            }
+
+            ghostX[i] = ghostX[i] + (ghostDX[i] * ghostSpeed[i]);
+            ghostY[i] = ghostY[i] + (ghostDY[i] * ghostSpeed[i]);
+            drawGhost(g, ghostX[i] + 1, ghostY[i] + 1);
+
+            if (pacmanX > (ghostX[i] - 12) && pacmanX < (ghostX[i] + 12)
+                    && pacmanY > (ghostY[i] - 12) && pacmanY < (ghostY[i] + 12)
+                    && gameRunning) {
+
+                pacmanAlive = true;
+            }
+        }
+    }
+
+    private void drawGhost(Graphics2D g, int x, int y) {
+    	g.drawImage(ghost, x, y, this);
+        }
 
