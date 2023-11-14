@@ -329,3 +329,70 @@ private void continueLevel() {
     pacmanAlive = false;
 }
 
+public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.black);
+        g2d.fillRect(0, 0, dim.width, dim.height);
+
+        drawMaze(g2d);
+        drawScore(g2d);
+
+        if (gameRunning) {
+            startGame(g2d);
+        } else {
+            showIntro(g2d);
+        }
+
+        Toolkit.getDefaultToolkit().sync();
+        g2d.dispose();
+    }
+
+
+class TAdapter extends KeyAdapter {
+
+        public void keyPressed(KeyEvent e) {
+
+            int key = e.getKeyCode();
+
+            if (gameRunning) {
+            	
+            	switch(key) {
+            	case KeyEvent.VK_LEFT:
+            		reqDx = -1;
+                	reqDy = 0;
+                	break;
+            	case KeyEvent.VK_RIGHT:
+            		reqDx = 1;
+                	reqDy = 0;
+                	break;
+            	case KeyEvent.VK_UP:
+            		reqDx = 0;
+                	reqDy = -1;
+                	break;
+            	case KeyEvent.VK_DOWN:
+            		reqDx = 0;
+                	reqDy = 1;
+                	break;
+            	case KeyEvent.VK_ESCAPE:
+            		gameRunning = false;
+                	break;
+            	}
+            	
+            } else {
+                if (key == KeyEvent.VK_ENTER) {
+                    gameRunning = true;
+                    initializeGame();
+                }
+            }
+        }
+}
+
+	
+public void actionPerformed(ActionEvent e) {
+        repaint();
+    }
+		
+	}
