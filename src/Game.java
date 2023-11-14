@@ -1,5 +1,39 @@
 
 
+import java.awt.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class Game extends JPanel implements ActionListener {
+
+    private Dimension dim;
+    private final Font font = new Font("a Astro Space", Font.BOLD, 16);
+    private boolean gameRunning = false;
+    private boolean pacmanAlive = false;
+
+    private final int B_SIZE = 24;
+    private final int NUM_BLOCK = 15;
+    private final int SCREEN_SIZE = NUM_BLOCK * B_SIZE;
+    private final int MAX_GHOSTS = 15;
+    private final int PACMAN_SPEED = 4;
+
+    private int N_GHOSTS = 6;
+    private int lives, score;
+    private int[] dx, dy;
+    private int[] ghostX, ghostY, ghostDX, ghostDY, ghostSpeed;
+
+    private Image heart, ghost;
+    private Image up, down, left, right;
+
+    private int pacmanX, pacmanY, pacmanDirX, pacmanDirY;
+    private int reqDx, reqDy;
+
 
 
 
