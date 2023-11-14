@@ -238,3 +238,46 @@ private void drawPacman(Graphics2D g2d) {
     }
 }
 
+ private void drawMaze(Graphics2D g2d) {
+
+        int i = 0;
+        int x, y;
+
+        for (y = 0; y < SCREEN_SIZE; y += B_SIZE) {
+            for (x = 0; x < SCREEN_SIZE; x += B_SIZE) {
+
+                g2d.setColor(new Color(200,82,1));
+                g2d.setStroke(new BasicStroke(5));
+                
+                if ((levelData[i] == 0)) { 
+                	g2d.fillRect(x, y, B_SIZE, B_SIZE);
+                 }
+
+                if ((screenData[i] & 1) != 0) { 
+                    g2d.drawLine(x, y, x, y + B_SIZE - 1);
+                }
+
+                if ((screenData[i] & 2) != 0) { 
+                    g2d.drawLine(x, y, x + B_SIZE - 1, y);
+                }
+
+                if ((screenData[i] & 4) != 0) { 
+                    g2d.drawLine(x + B_SIZE - 1, y, x + B_SIZE - 1,
+                            y + B_SIZE - 1);
+                }
+
+                if ((screenData[i] & 8) != 0) { 
+                    g2d.drawLine(x, y + B_SIZE - 1, x + B_SIZE - 1,
+                            y + B_SIZE - 1);
+                }
+
+                if ((screenData[i] & 16) != 0) { 
+                    g2d.setColor(new Color(255,255,255));
+                    g2d.fillOval(x + 10, y + 10, 6, 6);
+               }
+
+                i++;
+            }
+        }
+    }
+
