@@ -281,3 +281,11 @@ private void drawPacman(Graphics2D g2d) {
         }
     }
 
+private void initializeGame() {
+
+    	lives = 3;
+        score = 0;
+        initializeLevel();
+        N_GHOSTS = 6;
+        currentSpeed = 3;
+    }
