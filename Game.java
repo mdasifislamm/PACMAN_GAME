@@ -289,3 +289,13 @@ private void initializeGame() {
         N_GHOSTS = 6;
         currentSpeed = 3;
     }
+	
+    private void initializeLevel() {
+
+        int i;
+        for (i = 0; i < NUM_BLOCK * NUM_BLOCK; i++) {
+            screenData[i] = levelData[i];
+        }
+
+        continueLevel();
+    }
