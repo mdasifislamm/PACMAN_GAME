@@ -55,3 +55,52 @@ private void startGame(Graphics2D g) {
     }
 }
 
+
+private void showIntro(Graphics2D g2d) {
+ 
+    	String start = "Press ENTER to start";
+        g2d.setColor(Color.yellow);
+        g2d.drawString(start, 70, 180);
+    }
+
+    private void drawScore(Graphics2D g) {
+        g.setFont(font);
+        g.setColor(new Color(124, 211, 9));
+        String s = "Score: " + score;
+        g.drawString(s,  247,  376);
+
+        for (int i = 0; i < lives; i++) {
+            g.drawImage(heart, i * 28 + 8, SCREEN_SIZE + 1, this);
+        }
+    }
+	
+	private void checkMaze() {
+
+        int i = 0;
+        boolean finished = true;
+
+        while (i < NUM_BLOCK * NUM_BLOCK && finished) {
+
+            if ((screenData[i]) != 0) {
+                finished = false;
+            }
+
+            i++;
+        }
+
+        if (finished) {
+
+            score += 50;
+
+            if (N_GHOSTS < MAX_GHOSTS) {
+                N_GHOSTS++;
+            }
+
+            if (currentSpeed < maxSpeed) {
+                currentSpeed++;
+            }
+
+            initializeLevel();
+        }
+    }
+
