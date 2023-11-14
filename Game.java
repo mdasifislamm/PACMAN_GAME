@@ -103,4 +103,15 @@ private void showIntro(Graphics2D g2d) {
             initializeLevel();
         }
     }
+private void death() {
+
+    lives--;
+
+    if (lives == 0) {
+        gameRunning = false;
+    }
+
+    continueLevel();
+}
+
 
