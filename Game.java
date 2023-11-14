@@ -299,3 +299,54 @@ private void initializeGame() {
 
         continueLevel();
     }
+
+
+private void movePacman() {
+
+    int pos;
+    int ch;
+
+    if (pacmanX % B_SIZE == 0 && pacmanY % B_SIZE == 0) {
+        pos = pacmanX / B_SIZE + NUM_BLOCK * (int) (pacmanY / B_SIZE);
+        ch = screenData[pos];
+
+        if ((ch & 16) != 0) {
+            screenData[pos] = (short) (ch & 15);
+            score++;
+        }
+
+        if (reqDx != 0 || reqDy != 0) {
+            if (!((reqDx == -1 && reqDy == 0 && (ch & 1) != 0)
+                    || (reqDx == 1 && reqDy == 0 && (ch & 4) != 0)
+                    || (reqDx == 0 && reqDy == -1 && (ch & 2) != 0)
+                    || (reqDx == 0 && reqDy == 1 && (ch & 8) != 0))) {
+                pacmanDirX = reqDx;
+                pacmanDirY = reqDy;
+            }
+        }
+
+        if ((pacmanDirX == -1 && pacmanDirY == 0 && (ch & 1) != 0)
+                || (pacmanDirX == 1 && pacmanDirY == 0 && (ch & 4) != 0)
+                || (pacmanDirX == 0 && pacmanDirY == -1 && (ch & 2) != 0)
+                || (pacmanDirX == 0 && pacmanDirY == 1 && (ch & 8) != 0)) {
+            pacmanDirX = 0;
+            pacmanDirY = 0;
+        }
+    }
+    pacmanX = pacmanX + PACMAN_SPEED * pacmanDirX;
+    pacmanY = pacmanY + PACMAN_SPEED * pacmanDirY;
+}
+
+private void drawPacman(Graphics2D g2d) {
+
+    if (reqDx == -1) {
+        g2d.drawImage(left, pacmanX + 1, pacmanY + 1, this);
+    } else if (reqDx == 1) {
+        g2d.drawImage(right, pacmanX + 1, pacmanY + 1, this);
+    } else if (reqDy == -1) {
+        g2d.drawImage(up, pacmanX + 1, pacmanY + 1, this);
+    } else {
+        g2d.drawImage(down, pacmanX + 1, pacmanY + 1, this);
+    }
+}
+
